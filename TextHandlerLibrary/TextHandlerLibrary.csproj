@@ -40,8 +40,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Creaters\SymbolCreater.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SenstenseItemsClasses\Word.cs" />
+    <Compile Include="SenstenseItemsInterfaces\IPunctuation.cs" />
+    <Compile Include="SenstenseItemsInterfaces\ISentence.cs" />
+    <Compile Include="SenstenseItemsInterfaces\ISentenceItem.cs" />
     <Compile Include="SenstenseItemsInterfaces\IWord.cs" />
     <Compile Include="Structs\Symbol.cs" />
     <Compile Include="TextParser\TextParser.cs" />

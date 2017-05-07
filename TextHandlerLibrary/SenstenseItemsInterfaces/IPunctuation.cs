@@ -7,9 +7,8 @@ using TextHandlerLibrary.Structs;
 
 namespace TextHandlerLibrary.SenstenseItemsInterfaces
 {
-    public interface IWord: ISentenceItem, IEnumerable<Symbol>
+    interface IPunctuation: ISentenceItem
     {
-        Symbol this[int index] { get; }
-        int Length { get; }
+        Symbol Value { get; } 
     }
 }

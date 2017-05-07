@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TextHandlerLibrary.Structs;
 
 namespace TextHandlerLibrary.SenstenseItemsInterfaces
 {
-    public interface IWord: ISentenceItem, IEnumerable<Symbol>
+    interface ISentence: IEnumerable<ISentenceItem>
     {
-        Symbol this[int index] { get; }
-        int Length { get; }
+        void Add(ISentenceItem item);
+        void Remove(ISentenceItem item);
+        int WordCount { get; }
     }
 }

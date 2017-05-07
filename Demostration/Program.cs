@@ -25,8 +25,8 @@ namespace Demostration
             string path = ConfigurationManager.AppSettings["TextFilePath"];
             TextParser textParser = new TextParser();
 
-            textParser.Parse(path);
-
+            textParser.SentenceItemParser();
+            
 
             Console.ReadKey();
         }

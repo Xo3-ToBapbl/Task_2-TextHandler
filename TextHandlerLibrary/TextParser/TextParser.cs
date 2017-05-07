@@ -28,7 +28,8 @@ namespace TextHandlerLibrary.TextParser
         public TextParser()
         { }
 
-        public void Parse(string path)
+        #region Sentences parser
+        public void SentencesParser(string path)
         {
             #region Source
             StreamReader textStream = new StreamReader(path);
@@ -58,7 +59,7 @@ namespace TextHandlerLibrary.TextParser
                                   buffer_2.Length - (separatorIndex + sentenceSeparartor.Length)));
                     buffer_2.Clear();
                     #endregion
-                    if (buffer_1.ToString().IndexOfAny(sentenceSeparatorsLight) == -1)
+                    if (CheckSeparator(buffer_1.ToString())!= true)
                     {
                         NextString(ref buffer_1, ref buffer_2, ref currentString, ref textStream);
                     }  
@@ -71,13 +72,13 @@ namespace TextHandlerLibrary.TextParser
 
             textStream.Close();
         }
-        private string GetSentenceSeparator(ref int separatorIndex, string s_buffer)
+        private string GetSentenceSeparator(ref int separatorIndex, string buffer_1)
         {
             Dictionary<int, string> separatorIndexes = new Dictionary<int, string>();
 
             foreach (string separator in sentenceSeparators)
             {
-                separatorIndex = s_buffer.IndexOf(separator);
+                separatorIndex = buffer_1.IndexOf(separator);
                 if (separatorIndex !=-1)
                     separatorIndexes[separatorIndex]= separator;
             }
@@ -85,12 +86,24 @@ namespace TextHandlerLibrary.TextParser
             if (separatorIndexes.Count != 0)
             {
                 separatorIndex = separatorIndexes.Keys.Min();
-                return s_buffer.Substring(separatorIndex, separatorIndexes[separatorIndex].Length);
+                return separatorIndexes[separatorIndex];
             }    
             else
             {
                 return null;
             }
+        }
+        private bool CheckSeparator(string buffer_1)
+        {
+            foreach (string separator in sentenceSeparators)
+            {
+                int separatorIndex = buffer_1.IndexOf(separator);
+                if (separatorIndex != -1)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
         private void NextString(ref StringBuilder buffer_1, ref StringBuilder buffer_2, 
                                    ref string currentString, ref StreamReader textStream)
@@ -101,5 +114,69 @@ namespace TextHandlerLibrary.TextParser
             currentString = textStream.ReadLine();
             buffer_1.Append(currentString);
         }
+        #endregion
+        #region Sentence parser
+        public void SentenceItemParser()
+        {
+            List<string> sentenceItems = new List<string>();
+            char[] wordSeparators = { ' ', ',', ';', ':' , '.', '—' };
+            int separatorIndex = -1;
+            string sentence = "     ddfsfdsf, fdsfsfsf  , sadsdd-dasdasd.";
+
+            StringBuilder buffer_1 = new StringBuilder();
+            StringBuilder buffer_2 = new StringBuilder();
+            buffer_1.Append(sentence.Trim());
+
+            while (buffer_1.Length !=0)
+            {
+                char wordSeparator = ' ';
+                string word = GetSentenceItems(ref separatorIndex, ref wordSeparator, 
+                                               wordSeparators, buffer_1.ToString());
+                if (word != "")
+                {
+                    sentenceItems.Add(" ");
+                    sentenceItems.Add(word.Trim());
+                }
+                if (wordSeparator != ' ')
+                    sentenceItems.Add(wordSeparator.ToString());
+
+                buffer_2.Append(buffer_1);
+                buffer_1.Clear();
+                buffer_1.Append(buffer_2.ToString().
+                    Substring(separatorIndex + 1, buffer_2.Length - separatorIndex - 1).Trim());
+                if (string.Compare(buffer_1.ToString(), buffer_2.ToString()) != 0)
+                    buffer_2.Clear();
+                else
+                {
+                    buffer_1.Clear(); buffer_2.Clear();
+                }
+            }
+            if (sentenceItems.Count != 0)
+                sentenceItems.RemoveAt(0);
+            string joinedString = string.Join("", sentenceItems);
+
+        }
+        public string GetSentenceItems(ref int separatorIndex, ref char wordSeparator, 
+                                       char[] wordSeparators, string buffer_1)
+        {
+            Dictionary<int, char> separatorIndexes = new Dictionary<int, char>();
+            foreach (char separator in wordSeparators)
+            {
+                separatorIndex = buffer_1.IndexOf(separator);
+                if (separatorIndex != -1)
+                {
+                    separatorIndexes[separatorIndex] = separator;
+                }
+            }
+            if (separatorIndexes.Count != 0)
+            {
+                separatorIndex = separatorIndexes.Keys.Min();
+                wordSeparator = separatorIndexes[separatorIndex];
+                return buffer_1.Substring(0, separatorIndex);
+            }
+            else
+                return buffer_1;
+        }
+        #endregion
     }
 }

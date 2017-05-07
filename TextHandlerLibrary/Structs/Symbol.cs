@@ -8,11 +8,33 @@ namespace TextHandlerLibrary.Structs
 {
     public struct Symbol
     {
-        private string symbol;
+        private string chars;
+        private bool isVowel;
 
-        public Symbol(char symbol)
+        public bool IsVowel
         {
-            this.symbol = symbol.ToString();
+            get
+            {
+                return isVowel;
+            }
+        }
+        public string Chars
+        {
+            get
+            {
+                return chars;
+            }
+        }
+
+        public Symbol(string chars, bool isVowel)
+        {
+            this.chars = chars;
+            this.isVowel = isVowel;
+        }
+        public Symbol(char _char, bool isVowel)
+        {
+            this.chars = _char.ToString();
+            this.isVowel = isVowel;
         }
     }
 }
