@@ -10,6 +10,7 @@ namespace TextHandlerLibrary.TextParser
     public class TextParser
     {
         private string[] sentenceSeparators = { ".", "!", "...", "!?", "?!" };
+        private char[] sentenceSeparatorsLight = { '.', '!', '?' };
         private List<string> sentences = new List<string>();
 
         public List<string> Sentences
@@ -29,42 +30,42 @@ namespace TextHandlerLibrary.TextParser
 
         public void Parse(string path)
         {
-            #region source
+            #region Source
             StreamReader textStream = new StreamReader(path);
-            StringBuilder buffer = new StringBuilder(10000);
-            StringBuilder s_buffer = new StringBuilder(10000);
-            buffer.Clear(); s_buffer.Clear();
+            StringBuilder buffer_1 = new StringBuilder(10000);
+            StringBuilder buffer_2 = new StringBuilder(10000);
+            buffer_1.Clear(); buffer_2.Clear();
 
             string currentString = textStream.ReadLine();
-            s_buffer.Append(currentString);
+            buffer_1.Append(currentString);
 
             int separatorIndex = -1;
             #endregion
             while (currentString != null)
             {
-                string sentenceSeparartor = GetSentenceSeparator(ref separatorIndex, s_buffer.ToString());
+                string sentenceSeparartor = GetSentenceSeparator(ref separatorIndex, buffer_1.ToString());
                 if (sentenceSeparartor != null)
                 {
-                    buffer.Append(s_buffer.ToString().Substring(0, separatorIndex + sentenceSeparartor.Length));
-                    Sentences.Add(buffer.ToString());
-                    buffer.Clear();
-                    buffer.Append(currentString.
-                        Substring(s_buffer.Length + 1, currentString.Length));
-                    s_buffer.Clear();
-                    if (GetSentenceSeparator(ref separatorIndex, buffer.ToString()) != null)
+                    #region Create sentece
+                    string sentence = buffer_2 + buffer_1.ToString().
+                        Substring(0, separatorIndex + sentenceSeparartor.Length);
+                    Sentences.Add(sentence);
+                    buffer_2.Clear();
+                    buffer_2.Append(buffer_1);
+                    buffer_1.Clear();
+                    buffer_1.Append(buffer_2.ToString().
+                        Substring(separatorIndex + sentenceSeparartor.Length, 
+                                  buffer_2.Length - (separatorIndex + sentenceSeparartor.Length)));
+                    buffer_2.Clear();
+                    #endregion
+                    if (buffer_1.ToString().IndexOfAny(sentenceSeparatorsLight) == -1)
                     {
-                        s_buffer = buffer;
-                        buffer.Clear();
-                    }
-                    else
-                    {
-                        currentString = textStream.ReadLine();
-                        s_buffer.Append(currentString);
-                    }
+                        NextString(ref buffer_1, ref buffer_2, ref currentString, ref textStream);
+                    }  
                 }
                 else
                 {
-
+                    NextString(ref buffer_1, ref buffer_2, ref currentString, ref textStream);
                 }
             }
 
@@ -90,6 +91,15 @@ namespace TextHandlerLibrary.TextParser
             {
                 return null;
             }
+        }
+        private void NextString(ref StringBuilder buffer_1, ref StringBuilder buffer_2, 
+                                   ref string currentString, ref StreamReader textStream)
+        {
+            buffer_2.Append(buffer_1);
+            buffer_2.Append(" ");
+            buffer_1.Clear();
+            currentString = textStream.ReadLine();
+            buffer_1.Append(currentString);
         }
     }
 }
