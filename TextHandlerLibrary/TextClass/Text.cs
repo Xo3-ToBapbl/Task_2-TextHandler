@@ -9,7 +9,14 @@ namespace TextHandlerLibrary.TextClass
 {
     public class Text
     {
-        public ICollection<ISentence> Sentences { get; set; }
+        private ICollection<ISentence> sentences;
+        public ICollection<ISentence> Sentences
+        {
+            get
+            {
+                return sentences;
+            }
+        }
         public int SentencesCount
         {
             get
@@ -20,7 +27,21 @@ namespace TextHandlerLibrary.TextClass
 
         public Text()
         {
-            Sentences = new List<ISentence>();
+            sentences = new List<ISentence>();
+        }
+
+        public IOrderedEnumerable<ISentence> GetSentenceOrderedByWordsCount()
+        {
+            return Sentences.OrderBy(x => x.WordCount);
+        }
+        public void DeleteWordsByLengthInInterrogative(int length)
+        {
+
+            var iterrogativeSentence = sentences.
+                Where(x => x.Interrogative).
+                SelectMany(y => y.Words).
+                Where(z => z.Length == length).
+                Distinct();
         }
     }
 }

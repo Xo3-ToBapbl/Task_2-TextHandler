@@ -11,5 +11,6 @@ namespace TextHandlerLibrary.SenstenseItemsInterfaces
     {
         Symbol this[int index] { get; }
         int Length { get; }
+        bool Equals(IWord word);
     }
 }

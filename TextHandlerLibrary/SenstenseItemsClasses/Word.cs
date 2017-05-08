@@ -54,5 +54,13 @@ namespace TextHandlerLibrary.SenstenseItemsClasses
         {
             return symbols.GetEnumerator();
         }
+
+        public bool Equals(IWord word)
+        {
+            if (this.Chars == word.Chars)
+                return true;
+            else
+                return false;
+        }
     }
 }

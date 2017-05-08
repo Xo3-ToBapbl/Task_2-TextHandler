@@ -15,5 +15,7 @@ namespace TextHandlerLibrary.SenstenseItemsInterfaces
         int Count { get; }
         int WordCount { get; }
         string SentenceToString { get; }
+        bool Interrogative { get; }
+        IEnumerable<IWord> Words { get; }
     }
 }

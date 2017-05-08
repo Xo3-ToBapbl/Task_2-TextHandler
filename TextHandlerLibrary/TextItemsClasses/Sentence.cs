@@ -33,6 +33,20 @@ namespace TextHandlerLibrary.TextItemsClasses
                 return string.Join("", sentenceItems.Select(x => x.Chars) );
             }
         }
+        public bool Interrogative
+        {
+            get
+            {
+                return sentenceItems.Any(x => x.Chars == "?");
+            }
+        }
+        public IEnumerable<IWord> Words
+        {
+            get
+            {
+                return sentenceItems.Where(x => x is IWord).Cast<IWord>();
+            }
+        }
         public ISentenceItem this[int index]
         {
             get
@@ -44,7 +58,7 @@ namespace TextHandlerLibrary.TextItemsClasses
         public Sentence(ICollection <ISentenceItem> sentenceItems)
         {
             this.sentenceItems = sentenceItems;
-        }
+        }    
 
         public void Add(ISentenceItem item)
         {

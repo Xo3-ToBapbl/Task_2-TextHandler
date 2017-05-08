@@ -12,8 +12,8 @@ namespace TextHandlerLibrary.SymbolContainers
         private char[] coconsonants = {'b', 'c', 'd', 'f', 'g', 'h',
                                   'j', 'k', 'l', 'm', 'n', 'p',
                                   'r', 's', 't', 'v', 'w', 'x', 'z', '-'};
-        private char[] wordSeparators = { ' ', ',', ';', ':', '.', '—' };
-        private string[] sentenceSeparators = { ".", "!", "...", "!?", "?!" };
+        private char[] wordSeparators = { ' ', ',', ';', ':', '.', '—', '!', '?' };
+        private string[] sentenceSeparators = { ".", "!", "?", "!?", "?!", "..." };
 
         public char[] Vowels
         {

@@ -26,6 +26,15 @@ namespace Demostration
 
             TextParser textParser = new TextParser(symbolContainer);
             Text text = textParser.ParseText(path);
+            IOrderedEnumerable<ISentence> orderedText = text.GetSentenceOrderedByWordsCount();
+            text.DeleteWordsByLengthInInterrogative(3);
+
+            foreach (var sentence in orderedText)
+            {
+                Console.WriteLine(sentence.SentenceToString);
+            }
+
+            Console.ReadKey();
         }
     }
 }
