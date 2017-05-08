@@ -10,6 +10,13 @@ namespace TextHandlerLibrary.TextClass
     public class Text
     {
         public ICollection<ISentence> Sentences { get; set; }
+        public int SentencesCount
+        {
+            get
+            {
+                return Sentences.Count;
+            }
+        }
 
         public Text()
         {

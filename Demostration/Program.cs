@@ -13,6 +13,7 @@ using TextHandlerLibrary.Creaters;
 using TextHandlerLibrary.SenstenseItemsInterfaces;
 using TextHandlerLibrary.SymbolContainers;
 using TextHandlerLibrary.TextItemsClasses;
+using TextHandlerLibrary.TextClass;
 
 namespace Demostration
 {
@@ -24,21 +25,7 @@ namespace Demostration
             SymbolContainer symbolContainer = new SymbolContainer();
 
             TextParser textParser = new TextParser(symbolContainer);
-            WordCreater wordCreator = new WordCreater(symbolContainer);
-
-            ISentenceItem word1 = wordCreator.Create("FoiAcccG");
-            ISentenceItem word2 = wordCreator.Create("Masa");
-            ISentenceItem word3 = wordCreator.Create("Mdddasa");
-
-            ISentence sentence = new Sentence(new List<ISentenceItem>());
-
-            sentence.Add(word1);
-            sentence.Add(word2);
-            sentence.Add(word3);
-
-            sentence.RemoveAtInd(1);
-
-            Console.ReadKey();
+            Text text = textParser.ParseText(path);
         }
     }
 }

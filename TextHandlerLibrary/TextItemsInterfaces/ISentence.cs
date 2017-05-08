@@ -11,7 +11,9 @@ namespace TextHandlerLibrary.SenstenseItemsInterfaces
         ISentenceItem this[int index] { get; }
         void Add(ISentenceItem item);
         void Remove(ISentenceItem item);
-        void RemoveAtInd(int index);
+        void RemoveAtIndex(int index);
+        int Count { get; }
         int WordCount { get; }
+        string SentenceToString { get; }
     }
 }

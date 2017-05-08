@@ -12,11 +12,25 @@ namespace TextHandlerLibrary.TextItemsClasses
     {
         private ICollection<ISentenceItem> sentenceItems;
 
+        public int Count
+        {
+            get
+            {
+                return sentenceItems.Count;
+            }
+        }
         public int WordCount
         {
             get
             {
-                return sentenceItems.Select(x => x is IWord).Count();
+                return sentenceItems.Where(x => x is IWord).Count();
+            }
+        }
+        public string SentenceToString
+        {
+            get
+            {
+                return string.Join("", sentenceItems.Select(x => x.Chars) );
             }
         }
         public ISentenceItem this[int index]
@@ -40,7 +54,7 @@ namespace TextHandlerLibrary.TextItemsClasses
         {
            sentenceItems.Remove(item);
         }
-        public void RemoveAtInd(int index)
+        public void RemoveAtIndex(int index)
         {
             sentenceItems.Remove(this[index]);
         }

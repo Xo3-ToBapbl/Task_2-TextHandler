@@ -7,7 +7,7 @@ using TextHandlerLibrary.SenstenseItemsInterfaces;
 
 namespace TextHandlerLibrary.CreatersInterfaces
 {
-    interface ISentenceItemCreator
+    public interface ISentenceItemCreator
     {
         ISentenceItem Create(string chars);
     }
