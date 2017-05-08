@@ -36,5 +36,10 @@ namespace TextHandlerLibrary.Structs
             this.chars = _char.ToString();
             this.isVowel = isVowel;
         }
+        public Symbol(char _char)
+        {
+            this.chars = _char.ToString();
+            this.isVowel = false;
+        }
     }
 }

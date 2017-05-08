@@ -41,13 +41,9 @@ namespace TextHandlerLibrary.SenstenseItemsClasses
             }
         }
 
-        public Word(string chars)
+        public Word(IEnumerable<Symbol> source)
         {
-            if (chars != null)
-            {
-                SymbolCreater symbolCreater = new SymbolCreater();
-                //symbols = symbolCreater.CreateSymbol(chars);
-            }
+            symbols = source.ToArray();
         }
 
         public IEnumerator<Symbol> GetEnumerator()

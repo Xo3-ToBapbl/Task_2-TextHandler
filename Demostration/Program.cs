@@ -8,6 +8,10 @@ using TextHandlerLibrary.SenstenseItemsClasses;
 using System.IO;
 using System.Configuration;
 using TextHandlerLibrary.TextParser;
+using TextHandlerLibrary.SenstenseItemsClasses;
+using TextHandlerLibrary.Creaters;
+using TextHandlerLibrary.SenstenseItemsInterfaces;
+using TextHandlerLibrary.SymbolContainers;
 
 namespace Demostration
 {
@@ -24,9 +28,10 @@ namespace Demostration
 
             string path = ConfigurationManager.AppSettings["TextFilePath"];
             TextParser textParser = new TextParser();
+            SymbolContainer sc = new SymbolContainer(); 
 
-            textParser.SentenceItemParser();
-            
+            WordCreater wordCreator = new WordCreater(sc);
+            ISentenceItem word = wordCreator.Create("FoiAcccG");
 
             Console.ReadKey();
         }

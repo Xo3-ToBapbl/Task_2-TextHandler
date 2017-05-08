@@ -153,8 +153,6 @@ namespace TextHandlerLibrary.TextParser
             }
             if (sentenceItems.Count != 0)
                 sentenceItems.RemoveAt(0);
-            string joinedString = string.Join("", sentenceItems);
-
         }
         public string GetSentenceItems(ref int separatorIndex, ref char wordSeparator, 
                                        char[] wordSeparators, string buffer_1)

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TextHandlerLibrary.SenstenseItemsInterfaces
 {
-    interface ISentence: IEnumerable<ISentenceItem>
+    public interface ISentence: IEnumerable<ISentenceItem>
     {
         void Add(ISentenceItem item);
         void Remove(ISentenceItem item);
