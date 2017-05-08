@@ -8,14 +8,9 @@ using TextHandlerLibrary.SenstenseItemsInterfaces;
 
 namespace TextHandlerLibrary.TextItemsClasses
 {
-    class Sentence : ISentence
+    public  class Sentence : ISentence
     {
         private ICollection<ISentenceItem> sentenceItems;
-
-        public Sentence(ICollection <ISentenceItem> sentenceItems)
-        {
-            this.sentenceItems = sentenceItems;
-        }
 
         public int WordCount
         {
@@ -23,6 +18,18 @@ namespace TextHandlerLibrary.TextItemsClasses
             {
                 return sentenceItems.Select(x => x is IWord).Count();
             }
+        }
+        public ISentenceItem this[int index]
+        {
+            get
+            {
+                return sentenceItems.ToArray()[index];
+            }
+        }
+
+        public Sentence(ICollection <ISentenceItem> sentenceItems)
+        {
+            this.sentenceItems = sentenceItems;
         }
 
         public void Add(ISentenceItem item)
@@ -32,6 +39,10 @@ namespace TextHandlerLibrary.TextItemsClasses
         public void Remove(ISentenceItem item)
         {
            sentenceItems.Remove(item);
+        }
+        public void RemoveAtInd(int index)
+        {
+            sentenceItems.Remove(this[index]);
         }
 
         public IEnumerator<ISentenceItem> GetEnumerator()

@@ -4,13 +4,16 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TextHandlerLibrary.SenstenseItemsInterfaces;
+using TextHandlerLibrary.SymbolContainers;
+using TextHandlerLibrary.TextItemsClasses;
 
 namespace TextHandlerLibrary.TextParser
 {
     public class TextParser
     {
         private string[] sentenceSeparators = { ".", "!", "...", "!?", "?!" };
-        private char[] sentenceSeparatorsLight = { '.', '!', '?' };
+        private SymbolContainer symbolContainer;
         private List<string> sentences = new List<string>();
 
         public List<string> Sentences
@@ -25,10 +28,12 @@ namespace TextHandlerLibrary.TextParser
             }
         }
 
-        public TextParser()
-        { }
+        public TextParser(SymbolContainer symbolContainer)
+        {
+            this.symbolContainer = symbolContainer;
+        }
 
-        #region Sentences parser
+        #region Text parser
         public void SentencesParser(string path)
         {
             #region Source
@@ -44,10 +49,11 @@ namespace TextHandlerLibrary.TextParser
             #endregion
             while (currentString != null)
             {
-                string sentenceSeparartor = GetSentenceSeparator(ref separatorIndex, buffer_1.ToString());
+                string sentenceSeparartor = GetSentenceSeparator(
+                    ref separatorIndex, buffer_1.ToString(), symbolContainer.SentenceSeparators);
                 if (sentenceSeparartor != null)
                 {
-                    #region Create sentece
+                    #region Create Text
                     string sentence = buffer_2 + buffer_1.ToString().
                         Substring(0, separatorIndex + sentenceSeparartor.Length);
                     Sentences.Add(sentence);
@@ -59,7 +65,7 @@ namespace TextHandlerLibrary.TextParser
                                   buffer_2.Length - (separatorIndex + sentenceSeparartor.Length)));
                     buffer_2.Clear();
                     #endregion
-                    if (CheckSeparator(buffer_1.ToString())!= true)
+                    if (CheckSeparator(buffer_1.ToString(), symbolContainer.SentenceSeparators)!= true)
                     {
                         NextString(ref buffer_1, ref buffer_2, ref currentString, ref textStream);
                     }  
@@ -72,7 +78,7 @@ namespace TextHandlerLibrary.TextParser
 
             textStream.Close();
         }
-        private string GetSentenceSeparator(ref int separatorIndex, string buffer_1)
+        private string GetSentenceSeparator(ref int separatorIndex, string buffer_1, string[] sentenceSeparators)
         {
             Dictionary<int, string> separatorIndexes = new Dictionary<int, string>();
 
@@ -93,7 +99,7 @@ namespace TextHandlerLibrary.TextParser
                 return null;
             }
         }
-        private bool CheckSeparator(string buffer_1)
+        private bool CheckSeparator(string buffer_1, string[] sentenceSeparators)
         {
             foreach (string separator in sentenceSeparators)
             {
@@ -116,22 +122,21 @@ namespace TextHandlerLibrary.TextParser
         }
         #endregion
         #region Sentence parser
-        public void SentenceItemParser()
+        public void SentenceItemParser(string stringSentence)
         {
+            ISentence sentence = new Sentence(new List<ISentenceItem>());
             List<string> sentenceItems = new List<string>();
-            char[] wordSeparators = { ' ', ',', ';', ':' , '.', '—' };
             int separatorIndex = -1;
-            string sentence = "     ddfsfdsf, fdsfsfsf  , sadsdd-dasdasd.";
 
             StringBuilder buffer_1 = new StringBuilder();
             StringBuilder buffer_2 = new StringBuilder();
-            buffer_1.Append(sentence.Trim());
+            buffer_1.Append(stringSentence.Trim());
 
             while (buffer_1.Length !=0)
             {
                 char wordSeparator = ' ';
-                string word = GetSentenceItems(ref separatorIndex, ref wordSeparator, 
-                                               wordSeparators, buffer_1.ToString());
+                string word = GetSentenceItems(ref separatorIndex, ref wordSeparator,
+                                               symbolContainer.WordSeparators, buffer_1.ToString());
                 if (word != "")
                 {
                     sentenceItems.Add(" ");

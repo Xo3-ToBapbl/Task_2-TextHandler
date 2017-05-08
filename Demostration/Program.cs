@@ -12,6 +12,7 @@ using TextHandlerLibrary.SenstenseItemsClasses;
 using TextHandlerLibrary.Creaters;
 using TextHandlerLibrary.SenstenseItemsInterfaces;
 using TextHandlerLibrary.SymbolContainers;
+using TextHandlerLibrary.TextItemsClasses;
 
 namespace Demostration
 {
@@ -19,19 +20,23 @@ namespace Demostration
     {
         static void Main()
         {
-            #region Letters
-            //char[] vowels = { 'a', 'e', 'i', 'o', 'u', 'y' };
-            //char[] coconsonants = {'b', 'c', 'd', 'f', 'g', 'h',
-            //                      'j', 'k', 'l', 'm', 'n', 'p',
-            //                      'r', 's', 't', 'v', 'w', 'x', 'z'};
-            #endregion
-
             string path = ConfigurationManager.AppSettings["TextFilePath"];
-            TextParser textParser = new TextParser();
-            SymbolContainer sc = new SymbolContainer(); 
+            SymbolContainer symbolContainer = new SymbolContainer();
 
-            WordCreater wordCreator = new WordCreater(sc);
-            ISentenceItem word = wordCreator.Create("FoiAcccG");
+            TextParser textParser = new TextParser(symbolContainer);
+            WordCreater wordCreator = new WordCreater(symbolContainer);
+
+            ISentenceItem word1 = wordCreator.Create("FoiAcccG");
+            ISentenceItem word2 = wordCreator.Create("Masa");
+            ISentenceItem word3 = wordCreator.Create("Mdddasa");
+
+            ISentence sentence = new Sentence(new List<ISentenceItem>());
+
+            sentence.Add(word1);
+            sentence.Add(word2);
+            sentence.Add(word3);
+
+            sentence.RemoveAtInd(1);
 
             Console.ReadKey();
         }
