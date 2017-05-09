@@ -30,9 +30,8 @@ namespace TextHandlerLibrary.TextParser
             #region Source data
             Text text = new Text();
             StreamReader textStream = new StreamReader(path);
-            StringBuilder buffer_1 = new StringBuilder(10000);
-            StringBuilder buffer_2 = new StringBuilder(10000);
-            buffer_1.Clear(); buffer_2.Clear();
+            StringBuilder buffer_1 = new StringBuilder();
+            StringBuilder buffer_2 = new StringBuilder();           
 
             string currentString = textStream.ReadLine();
             buffer_1.Append(currentString);
@@ -139,7 +138,7 @@ namespace TextHandlerLibrary.TextParser
                     sentence.Add(sentenceItemCreator.Create(word));
                 }
                 if (wordSeparator != ' ')
-                    sentence.Add(new Punctuation(new Symbol(wordSeparator)));
+                    sentence.Add(new Punctuation(new Symbol(wordSeparator))); // rework with "!?", "?!" ...
 
                 buffer_2.Append(buffer_1);
                 buffer_1.Clear();

@@ -38,6 +38,7 @@ namespace TextHandlerLibrary.TextClass
                 SelectMany(y => y.Words).
                 Where(z => z.Length == length).
                 Distinct();
+
             if (words.Count() != 0)
                 return words;
             else
@@ -55,9 +56,9 @@ namespace TextHandlerLibrary.TextClass
                 {
                     while (sentence.Contains(word))
                     {
-                        int index = sentence.ToList().IndexOf(word) - 1;
+                        int spaceIndex = sentence.ToList().IndexOf(word) - 1;
                         sentence.Remove(word);
-                        sentence.RemoveAtIndex(index);
+                        sentence.RemoveAtIndex(spaceIndex);
                     }
                 }
             }

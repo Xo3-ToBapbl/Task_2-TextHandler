@@ -22,6 +22,7 @@ namespace TextHandlerLibrary.SymbolContainers
         public SymbolContainer(string path)
         {
             XDocument symbolsXdoc = XDocument.Load(path);
+
             string symbols = symbolsXdoc.Element("Symbols").Element("vowels").Value;
             vowels = symbols.Split(' ').Select(x => Convert.ToChar(x)).ToArray();
 

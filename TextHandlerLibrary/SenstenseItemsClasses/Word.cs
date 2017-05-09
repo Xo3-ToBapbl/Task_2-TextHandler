@@ -22,12 +22,12 @@ namespace TextHandlerLibrary.SenstenseItemsClasses
         {
             get
             {
-                StringBuilder sb = new StringBuilder();
+                StringBuilder _chars = new StringBuilder();
                 foreach (var s in this.symbols)
                 {
-                    sb.Append(s.Chars);
+                    _chars.Append(s.Chars);
                 }
-                return sb.ToString();
+                return _chars.ToString();
             }
         }
         public Symbol this[int index]
