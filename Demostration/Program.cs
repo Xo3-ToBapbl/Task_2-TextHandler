@@ -1,18 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TextHandlerLibrary.Structs;
-using TextHandlerLibrary.SenstenseItemsClasses;
-using System.IO;
 using System.Configuration;
 using TextHandlerLibrary.TextParser;
-using TextHandlerLibrary.SenstenseItemsClasses;
-using TextHandlerLibrary.Creaters;
 using TextHandlerLibrary.SenstenseItemsInterfaces;
 using TextHandlerLibrary.SymbolContainers;
-using TextHandlerLibrary.TextItemsClasses;
 using TextHandlerLibrary.TextClass;
 
 namespace Demostration
@@ -21,11 +12,13 @@ namespace Demostration
     {
         static void Main()
         {
-            string path = ConfigurationManager.AppSettings["TextFilePath"];
-            SymbolContainer symbolContainer = new SymbolContainer();
+            string textFilePath = ConfigurationManager.AppSettings["TextFilePath"];
+            string symbolFilePath = ConfigurationManager.AppSettings["SymbolsFilePath"];
 
+            SymbolContainer symbolContainer = new SymbolContainer(symbolFilePath);
             TextParser textParser = new TextParser(symbolContainer);
-            Text text = textParser.ParseText(path);
+
+            Text text = textParser.ParseText(textFilePath);
 
             IOrderedEnumerable<ISentence> orderedText = text.GetSentenceOrderedByWordsCount();
             IEnumerable<IWord> words = text.GetWordsByLengthInInterrogative(3);
