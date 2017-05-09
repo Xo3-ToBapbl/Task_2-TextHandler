@@ -17,5 +17,6 @@ namespace TextHandlerLibrary.SenstenseItemsInterfaces
         string SentenceToString { get; }
         bool Interrogative { get; }
         IEnumerable<IWord> Words { get; }
+        ICollection<ISentenceItem> SentenceItems { get; }
     }
 }

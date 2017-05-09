@@ -156,7 +156,6 @@ namespace TextHandlerLibrary.TextParser
             }
             if (sentence.Count != 0)
             {
-                sentence.RemoveAtIndex(0);
                 return sentence;
             }
             else

@@ -47,6 +47,13 @@ namespace TextHandlerLibrary.TextItemsClasses
                 return sentenceItems.Where(x => x is IWord).Cast<IWord>();
             }
         }
+        public ICollection<ISentenceItem> SentenceItems
+        {
+            get
+            {
+                return sentenceItems;
+            }
+        }
         public ISentenceItem this[int index]
         {
             get

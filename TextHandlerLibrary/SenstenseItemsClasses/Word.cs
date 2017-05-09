@@ -55,12 +55,24 @@ namespace TextHandlerLibrary.SenstenseItemsClasses
             return symbols.GetEnumerator();
         }
 
-        public bool Equals(IWord word)
+        public override bool Equals(object obj)
         {
-            if (this.Chars == word.Chars)
-                return true;
-            else
+            if (obj == null)
                 return false;
+            IWord word = obj as IWord;
+            if (word == null)
+                return false;
+            else
+            {
+                if (this.Chars.ToLower() == word.Chars.ToLower())
+                    return true;
+                else
+                    return false;
+            }
+        }
+        public override int GetHashCode()
+        {
+            return this.Chars.ToLower().GetHashCode();
         }
     }
 }
