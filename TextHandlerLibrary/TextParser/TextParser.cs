@@ -25,10 +25,12 @@ namespace TextHandlerLibrary.TextParser
         }
 
         #region Parse text by sentences
-        public Text ParseText(string path)
+        public Text ParseText(string path,
+            ICollection<ISentence> sentenceCollection,
+            ICollection<ISentenceItem> sentenceItemCollection)
         {
             #region Source data
-            Text text = new Text();
+            Text text = new Text(sentenceCollection);
             StreamReader textStream = new StreamReader(path);
             StringBuilder buffer_1 = new StringBuilder();
             StringBuilder buffer_2 = new StringBuilder();           
@@ -47,7 +49,7 @@ namespace TextHandlerLibrary.TextParser
                     #region Create Text
                     string sentence = buffer_2 + buffer_1.ToString().
                         Substring(0, separatorIndex + sentenceSeparartor.Length);
-                    text.Sentences.Add(ParseSentenceByItems(sentence));
+                    text.Sentences.Add(ParseSentenceByItems(sentence, sentenceItemCollection));
                     buffer_2.Clear();
                     buffer_2.Append(buffer_1);
                     buffer_1.Clear();
@@ -118,9 +120,10 @@ namespace TextHandlerLibrary.TextParser
         }
         #endregion
         #region Parse sentence by sentence items
-        public ISentence ParseSentenceByItems(string stringSentence)
+        public ISentence ParseSentenceByItems(string stringSentence, ICollection<ISentenceItem> collection)
         {
-            ISentence sentence = new Sentence(new List<ISentenceItem>());
+            
+            ISentence sentence = new Sentence(new List<ISentenceItem>()); // mistake
 
             int separatorIndex = -1;
             StringBuilder buffer_1 = new StringBuilder();

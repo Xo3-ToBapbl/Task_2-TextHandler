@@ -5,6 +5,7 @@ using TextHandlerLibrary.TextParser;
 using TextHandlerLibrary.SenstenseItemsInterfaces;
 using TextHandlerLibrary.SymbolContainers;
 using TextHandlerLibrary.TextClass;
+using TextHandlerLibrary.TextItemsClasses;
 
 namespace Demostration
 {
@@ -18,12 +19,23 @@ namespace Demostration
             SymbolContainer symbolContainer = new SymbolContainer(symbolFilePath);
             TextParser textParser = new TextParser(symbolContainer);
 
-            Text text = textParser.ParseText(textFilePath);
+            Text text = textParser.ParseText(textFilePath, new List<ISentence>(), new List<ISentenceItem>());
 
+            #region Tasks:
+            // Returns text ordered by increase count of words in sentences:
             IOrderedEnumerable<ISentence> orderedText = text.GetSentenceOrderedByWordsCount();
+
+            // Returns words with determine length in interrogative sentences:
             IEnumerable<IWord> words = text.GetWordsByLengthInInterrogative(3);
+
+            // Delete all words with determine length from text which starts with coconsonants letters:
             text.DeleteWordsByLength(3);
 
+            // In some sentence words with determine lenght replaced others sentence items:
+            Sentence sentenceItems = (Sentence)textParser.ParseSentenceByItems(
+                "insert, this and    this   :", new List<ISentenceItem>());
+            text.ReplaceWordsByLength(5, 5, sentenceItems);
+            #endregion
             #region Words
             //Word word1 = new Word(new List<Symbol> { new Symbol('b', false), new Symbol('a', true), new Symbol('r', false) });
             //Word word2 = new Word(new List<Symbol> { new Symbol('B', false), new Symbol('A', true), new Symbol('r', false) });

@@ -19,7 +19,7 @@ namespace TextHandlerLibrary.Creaters
 
         public ISentenceItem Create(string chars)
         {
-            ICollection <Symbol> symbols = new List<Symbol>();
+            ICollection <Symbol> symbols = new List<Symbol>(); // mistake
             foreach (char _char in chars)
             {
                 if(symbolContainer.Vowels.Any(x=>x == char.ToLower(_char) ))

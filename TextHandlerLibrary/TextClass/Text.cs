@@ -21,10 +21,17 @@ namespace TextHandlerLibrary.TextClass
                 return Sentences.Count;
             }
         }
-
-        public Text()
+        public ISentence this[int index]
         {
-            sentences = new List<ISentence>();
+            get
+            {
+                return sentences.ToArray()[index];
+            }
+        }
+
+        public Text(ICollection<ISentence> sentecnces)
+        {
+            this.sentences = sentecnces;
         }
 
         public IOrderedEnumerable<ISentence> GetSentenceOrderedByWordsCount()
@@ -63,6 +70,44 @@ namespace TextHandlerLibrary.TextClass
                 }
             }
         }
+        public void ReplaceWordsByLength(int sentenceIndex, int length, ISentence senteneItems)
+        {
+            ISentence sentence = this[sentenceIndex];
+            if (senteneItems != null)
+            {
+                int startIndex = -1; int count = 0; int index;
+                while (true)
+                {
+                    if ((startIndex + 1 + count) <= sentence.Count)
+                    {
+                        index = sentence.ToList().
+                           FindIndex(startIndex + 1 + count, x => x.Length == length);
+                    }
+                    else
+                    {
+                        break;
+                    }
+                    startIndex = index;
+                    count = senteneItems.Count;
+
+                    if (startIndex != -1)
+                    {
+                        sentence.RemoveAtIndex(index - 1);
+                        sentence.RemoveAtIndex(index - 1);
+                        sentence.InsertSentenceItemsByIndex(index - 1, senteneItems.SentenceItems);
+                    }
+                    else
+                    {
+                        break;
+                    } 
+
+                    
+                }
+            }
+            
+        }
+
+
 
     }
 }

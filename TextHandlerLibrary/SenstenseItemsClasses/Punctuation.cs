@@ -21,6 +21,13 @@ namespace TextHandlerLibrary.SenstenseItemsClasses
                 return this.Value.Chars;
             }
         }
+        public int Length
+        {
+            get
+            {
+                return this.Chars.Length;
+            }
+        }
 
         public Punctuation(Symbol source)
         {

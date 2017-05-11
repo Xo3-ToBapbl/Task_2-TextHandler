@@ -41,7 +41,7 @@ namespace TextHandlerLibrary.TextItemsClasses
         {
             get
             {
-                return sentenceItems.Where(x => x is IWord).Cast<IWord>();
+                return sentenceItems.OfType<IWord>();
             }
         }
         public ICollection<ISentenceItem> SentenceItems
@@ -75,6 +75,12 @@ namespace TextHandlerLibrary.TextItemsClasses
         public void RemoveAtIndex(int index)
         {
             sentenceItems.Remove(this[index]);
+        }
+        public void InsertSentenceItemsByIndex(int index, ICollection<ISentenceItem> _sentenceItems)
+        {
+            var newSentenceItems = sentenceItems.ToList();
+            newSentenceItems.InsertRange(index, _sentenceItems);
+            sentenceItems = newSentenceItems;
         }
 
         public IEnumerator<ISentenceItem> GetEnumerator()
