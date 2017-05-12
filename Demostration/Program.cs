@@ -19,7 +19,7 @@ namespace Demostration
             SymbolContainer symbolContainer = new SymbolContainer(symbolFilePath);
             TextParser textParser = new TextParser(symbolContainer);
 
-            Text text = textParser.ParseText(textFilePath, new List<ISentence>(), new List<ISentenceItem>());
+            Text text = textParser.ParseText(textFilePath, new List<ISentence>());
 
             #region Tasks:
             // Returns text ordered by increase count of words in sentences:
@@ -32,9 +32,8 @@ namespace Demostration
             text.DeleteWordsByLength(3);
 
             // In some sentence words with determine lenght replaced others sentence items:
-            Sentence sentenceItems = (Sentence)textParser.ParseSentenceByItems(
-                "insert, this and    this   :", new List<ISentenceItem>());
-            text.ReplaceWordsByLength(5, 5, sentenceItems);
+            ISentence sentenceItems = textParser.ParseSentenceByItems("insert, this and    this   :");
+            text.ReplaceWordsByLength(1, 2, sentenceItems);
             #endregion
             #region Words
             //Word word1 = new Word(new List<Symbol> { new Symbol('b', false), new Symbol('a', true), new Symbol('r', false) });

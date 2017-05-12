@@ -7,7 +7,7 @@ namespace TextHandlerLibrary.TextItemsClasses
 {
     public  class Sentence : ISentence
     {
-        private ICollection<ISentenceItem> sentenceItems;
+        private IList<ISentenceItem> sentenceItems;
 
         public int Count
         {
@@ -34,7 +34,7 @@ namespace TextHandlerLibrary.TextItemsClasses
         {
             get
             {
-                return sentenceItems.Any(x => x.Chars == "?");
+                return sentenceItems.Any(x => x.Chars == "?" || x.Chars == "!?" || x.Chars == "?!");
             }
         }
         public IEnumerable<IWord> Words
@@ -44,7 +44,7 @@ namespace TextHandlerLibrary.TextItemsClasses
                 return sentenceItems.OfType<IWord>();
             }
         }
-        public ICollection<ISentenceItem> SentenceItems
+        public IList<ISentenceItem> SentenceItems
         {
             get
             {
@@ -59,7 +59,7 @@ namespace TextHandlerLibrary.TextItemsClasses
             }
         }
 
-        public Sentence(ICollection <ISentenceItem> sentenceItems)
+        public Sentence(IList<ISentenceItem> sentenceItems)
         {
             this.sentenceItems = sentenceItems;
         }    

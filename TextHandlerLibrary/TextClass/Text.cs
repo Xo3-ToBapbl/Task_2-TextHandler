@@ -6,8 +6,8 @@ namespace TextHandlerLibrary.TextClass
 {
     public class Text
     {
-        private ICollection<ISentence> sentences;
-        public ICollection<ISentence> Sentences
+        private IList<ISentence> sentences;
+        public IList<ISentence> Sentences
         {
             get
             {
@@ -29,7 +29,7 @@ namespace TextHandlerLibrary.TextClass
             }
         }
 
-        public Text(ICollection<ISentence> sentecnces)
+        public Text(IList<ISentence> sentecnces)
         {
             this.sentences = sentecnces;
         }
@@ -53,27 +53,28 @@ namespace TextHandlerLibrary.TextClass
         }
         public void DeleteWordsByLength(int length)
         {
-            var _words = sentences.SelectMany(x => x.Words).ToArray().
+            var _words = sentences.SelectMany(x => x.Words).
                 Where(x =>x.Length == length && x[0].IsVowel == false).Distinct();
 
             for (int i=0; i< sentences.Count; i++)
             {
-                ISentence sentence = sentences.ToList()[i];
-                foreach (ISentenceItem word in _words)
+                ISentence sentence = sentences[i];
+                for (int j=0; j < _words.Count(); j++)
                 {
-                    while (sentence.Contains(word))
+                    while (_words.Count() != 0 && sentence.Contains(_words.ToArray()[j]))
                     {
-                        int spaceIndex = sentence.ToList().IndexOf(word) - 1;
-                        sentence.Remove(word);
+                        int spaceIndex = sentence.ToList().IndexOf(_words.ToArray()[j]) - 1;
+                        sentence.Remove(_words.ToArray()[j]);
                         sentence.RemoveAtIndex(spaceIndex);
+
                     }
                 }
             }
         }
-        public void ReplaceWordsByLength(int sentenceIndex, int length, ISentence senteneItems)
+        public void ReplaceWordsByLength(int sentenceIndex, int length, ISentence sentenceItems)
         {
             ISentence sentence = this[sentenceIndex];
-            if (senteneItems != null)
+            if (sentenceItems != null)
             {
                 int startIndex = -1; int count = 0; int index;
                 while (true)
@@ -88,26 +89,21 @@ namespace TextHandlerLibrary.TextClass
                         break;
                     }
                     startIndex = index;
-                    count = senteneItems.Count;
+                    count = sentenceItems.Count;
 
                     if (startIndex != -1)
                     {
                         sentence.RemoveAtIndex(index - 1);
                         sentence.RemoveAtIndex(index - 1);
-                        sentence.InsertSentenceItemsByIndex(index - 1, senteneItems.SentenceItems);
+                        sentence.InsertSentenceItemsByIndex(index - 1, sentenceItems.SentenceItems);
                     }
                     else
                     {
                         break;
                     } 
-
-                    
                 }
             }
             
         }
-
-
-
     }
 }

@@ -25,9 +25,7 @@ namespace TextHandlerLibrary.TextParser
         }
 
         #region Parse text by sentences
-        public Text ParseText(string path,
-            ICollection<ISentence> sentenceCollection,
-            ICollection<ISentenceItem> sentenceItemCollection)
+        public Text ParseText(string path, IList<ISentence> sentenceCollection)
         {
             #region Source data
             Text text = new Text(sentenceCollection);
@@ -49,7 +47,7 @@ namespace TextHandlerLibrary.TextParser
                     #region Create Text
                     string sentence = buffer_2 + buffer_1.ToString().
                         Substring(0, separatorIndex + sentenceSeparartor.Length);
-                    text.Sentences.Add(ParseSentenceByItems(sentence, sentenceItemCollection));
+                    text.Sentences.Add(ParseSentenceByItems(sentence));
                     buffer_2.Clear();
                     buffer_2.Append(buffer_1);
                     buffer_1.Clear();
@@ -120,7 +118,7 @@ namespace TextHandlerLibrary.TextParser
         }
         #endregion
         #region Parse sentence by sentence items
-        public ISentence ParseSentenceByItems(string stringSentence, ICollection<ISentenceItem> collection)
+        public ISentence ParseSentenceByItems(string stringSentence)
         {
             
             ISentence sentence = new Sentence(new List<ISentenceItem>()); // mistake
@@ -132,21 +130,23 @@ namespace TextHandlerLibrary.TextParser
 
             while (buffer_1.Length !=0)
             {
-                char wordSeparator = ' ';
+                string wordSeparator = " ";
                 string word = GetSentenceItems(ref separatorIndex, ref wordSeparator,
-                                               symbolContainer.WordSeparators, buffer_1.ToString());
+                                               symbolContainer.AllSeparators, buffer_1.ToString());
                 if (word != "")
                 {
                     sentence.Add(new Space(new Symbol(' ')) );
                     sentence.Add(sentenceItemCreator.Create(word));
                 }
-                if (wordSeparator != ' ')
+                if (wordSeparator != " ")
                     sentence.Add(new Punctuation(new Symbol(wordSeparator))); // rework with "!?", "?!" ...
 
                 buffer_2.Append(buffer_1);
                 buffer_1.Clear();
                 buffer_1.Append(buffer_2.ToString().
-                    Substring(separatorIndex + 1, buffer_2.Length - separatorIndex - 1).Trim());
+                    Substring(
+                    separatorIndex + wordSeparator.Length, buffer_2.Length - separatorIndex - wordSeparator.Length).
+                    Trim());
                 if (string.Compare(buffer_1.ToString(), buffer_2.ToString()) != 0)
                     buffer_2.Clear();
                 else
@@ -162,16 +162,17 @@ namespace TextHandlerLibrary.TextParser
                 return null;
         }
 
-        public string GetSentenceItems(ref int separatorIndex, ref char wordSeparator, 
-                                       char[] wordSeparators, string buffer_1)
+        public string GetSentenceItems(ref int separatorIndex, ref string wordSeparator, 
+                                       string[] allSeparators, string buffer_1)
         {
-            Dictionary<int, char> separatorIndexes = new Dictionary<int, char>();
-            foreach (char separator in wordSeparators)
+            Dictionary<int, string> separatorIndexes = new Dictionary<int, string>();
+            foreach (string separator in allSeparators)
             {
                 separatorIndex = buffer_1.IndexOf(separator);
                 if (separatorIndex != -1)
                 {
-                    separatorIndexes[separatorIndex] = separator;
+                    if (separatorIndexes.ContainsKey(separatorIndex) == false)
+                        separatorIndexes[separatorIndex] = separator;
                 }
             }
             if (separatorIndexes.Count != 0)

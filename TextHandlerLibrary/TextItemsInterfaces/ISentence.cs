@@ -10,7 +10,7 @@ namespace TextHandlerLibrary.SenstenseItemsInterfaces
         string SentenceToString { get; }
         bool Interrogative { get; }
         IEnumerable<IWord> Words { get; }
-        ICollection<ISentenceItem> SentenceItems { get; }
+        IList<ISentenceItem> SentenceItems { get; }
 
         void Add(ISentenceItem item);
         void Remove(ISentenceItem item);

@@ -35,5 +35,10 @@
             this.chars = _char.ToString();
             this.isVowel = false;
         }
+        public Symbol(string _char)
+        {
+            this.chars = _char;
+            this.isVowel = false;
+        }
     }
 }

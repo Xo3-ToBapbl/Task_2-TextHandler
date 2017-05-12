@@ -16,7 +16,7 @@ namespace TextHandlerLibrary.SymbolContainers
         #endregion
         private char[] vowels;
         private char[] coconsonants;
-        private char[] wordSeparators;
+        private string[] wordSeparators;
         private string[] sentenceSeparators;
 
         public SymbolContainer(string path)
@@ -32,10 +32,10 @@ namespace TextHandlerLibrary.SymbolContainers
             symbols = symbolsXdoc.Element("Symbols").Element("wordSeparators").Value;
             var _wordSeparators = symbols.Split(' ').ToList();
             _wordSeparators.Add(" ");
-            wordSeparators = _wordSeparators.Select(x => Convert.ToChar(x)).ToArray();
+            wordSeparators = _wordSeparators.ToArray();
 
             symbols = symbolsXdoc.Element("Symbols").Element("sentenceSeparators").Value;
-            sentenceSeparators = symbols.Split(' ');
+            sentenceSeparators = symbols.Split(' ').OrderBy(x=>x.Length).ToArray();
         }
 
         public char[] Vowels
@@ -52,7 +52,7 @@ namespace TextHandlerLibrary.SymbolContainers
                 return coconsonants;
             }
         }
-        public char[] WordSeparators
+        public string[] WordSeparators
         {
             get
             {
@@ -64,6 +64,13 @@ namespace TextHandlerLibrary.SymbolContainers
             get
             {
                 return sentenceSeparators;
+            }
+        }
+        public string[] AllSeparators
+        {
+            get
+            {
+                return wordSeparators.Concat(sentenceSeparators).OrderByDescending(x=>x.Length).ToArray();
             }
         }
 
