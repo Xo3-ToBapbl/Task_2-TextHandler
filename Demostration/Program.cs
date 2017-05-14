@@ -31,8 +31,8 @@ namespace Demostration
             // Delete all words with determine length from text which starts with coconsonants letters:
             text.DeleteWordsByLength(3);
 
-            // In some sentence words with determine lenght replaced others sentence items:
-            ISentence sentenceItems = textParser.ParseSentenceByItems("insert, this and    this   :");
+            // In some sentence words with determine length replaced others sentence items:
+            ISentence sentenceItems = textParser.ParseSentenceByItems("insert, this and  this   :");
             text.ReplaceWordsByLength(1, 2, sentenceItems);
             #endregion
             #region Words

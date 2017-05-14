@@ -41,6 +41,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CreatersInterfaces\ISentenceItemCreator.cs" />
+    <Compile Include="CreatersInterfaces\ITextItemCreator.cs" />
+    <Compile Include="Creaters\SentenceCreater.cs" />
     <Compile Include="Creaters\WordCreater.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SenstenseItemsClasses\Punctuation.cs" />

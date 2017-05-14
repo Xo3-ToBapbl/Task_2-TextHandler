@@ -20,7 +20,7 @@ namespace TextHandlerLibrary.TextItemsClasses
         {
             get
             {
-                return sentenceItems.Where(x => x is IWord).Count();
+                return sentenceItems.Count(x => x is IWord);
             }
         }
         public string SentenceToString
@@ -55,7 +55,7 @@ namespace TextHandlerLibrary.TextItemsClasses
         {
             get
             {
-                return sentenceItems.ToArray()[index];
+                return sentenceItems[index];
             }
         }
 

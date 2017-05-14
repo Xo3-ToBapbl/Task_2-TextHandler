@@ -16,12 +16,14 @@ namespace TextHandlerLibrary.TextParser
     public class TextParser
     {
         private SymbolContainer symbolContainer;
-        private ISentenceItemCreator sentenceItemCreator;
+        private ISentenceItemCreator wordCreator;
+        private ITextItemCreator sentenceCreator;
 
         public TextParser(SymbolContainer symbolContainer)
         {
             this.symbolContainer = symbolContainer;
-            this.sentenceItemCreator = new WordCreater(symbolContainer);
+            this.wordCreator = new WordCreater(symbolContainer);
+            this.sentenceCreator = new SentenceCreater();
         }
 
         #region Parse text by sentences
@@ -120,9 +122,6 @@ namespace TextHandlerLibrary.TextParser
         #region Parse sentence by sentence items
         public ISentence ParseSentenceByItems(string stringSentence)
         {
-            
-            ISentence sentence = new Sentence(new List<ISentenceItem>()); // mistake
-
             int separatorIndex = -1;
             StringBuilder buffer_1 = new StringBuilder();
             StringBuilder buffer_2 = new StringBuilder();
@@ -135,11 +134,11 @@ namespace TextHandlerLibrary.TextParser
                                                symbolContainer.AllSeparators, buffer_1.ToString());
                 if (word != "")
                 {
-                    sentence.Add(new Space(new Symbol(' ')) );
-                    sentence.Add(sentenceItemCreator.Create(word));
+                    sentenceCreator.Add(new Space(new Symbol(' ')) );
+                    sentenceCreator.Add(wordCreator.Create(word));
                 }
                 if (wordSeparator != " ")
-                    sentence.Add(new Punctuation(new Symbol(wordSeparator))); // rework with "!?", "?!" ...
+                    sentenceCreator.Add(new Punctuation(new Symbol(wordSeparator)));
 
                 buffer_2.Append(buffer_1);
                 buffer_1.Clear();
@@ -154,12 +153,9 @@ namespace TextHandlerLibrary.TextParser
                     buffer_1.Clear(); buffer_2.Clear();
                 }
             }
-            if (sentence.Count != 0)
-            {
-                return sentence;
-            }
-            else
-                return null;
+            ISentence sentence = sentenceCreator.Create();
+            sentenceCreator.Clear();
+            return sentence;
         }
 
         public string GetSentenceItems(ref int separatorIndex, ref string wordSeparator, 

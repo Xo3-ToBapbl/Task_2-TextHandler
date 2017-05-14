@@ -66,7 +66,6 @@ namespace TextHandlerLibrary.TextClass
                         int spaceIndex = sentence.ToList().IndexOf(_words.ToArray()[j]) - 1;
                         sentence.Remove(_words.ToArray()[j]);
                         sentence.RemoveAtIndex(spaceIndex);
-
                     }
                 }
             }
@@ -102,8 +101,7 @@ namespace TextHandlerLibrary.TextClass
                         break;
                     } 
                 }
-            }
-            
+            } 
         }
     }
 }
