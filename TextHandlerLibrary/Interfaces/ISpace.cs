@@ -1,6 +1,6 @@
 ﻿using TextHandlerLibrary.Structs;
 
-namespace TextHandlerLibrary.SenstenseItemsInterfaces
+namespace TextHandlerLibrary.Interfaces
 {
     interface ISpace: ISentenceItem
     {

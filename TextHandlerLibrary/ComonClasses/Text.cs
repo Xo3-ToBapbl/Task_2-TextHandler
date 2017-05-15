@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using TextHandlerLibrary.SenstenseItemsInterfaces;
+using TextHandlerLibrary.Interfaces;
 
 namespace TextHandlerLibrary.TextClass
 {

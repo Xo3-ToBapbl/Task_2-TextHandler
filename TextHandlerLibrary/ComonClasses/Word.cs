@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using TextHandlerLibrary.SenstenseItemsInterfaces;
+using TextHandlerLibrary.Interfaces;
 using TextHandlerLibrary.Structs;
 
 namespace TextHandlerLibrary.SenstenseItemsClasses

@@ -3,13 +3,12 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using TextHandlerLibrary.Creaters;
-using TextHandlerLibrary.CreatersInterfaces;
+using TextHandlerLibrary.Interfaces;
 using TextHandlerLibrary.SenstenseItemsClasses;
-using TextHandlerLibrary.SenstenseItemsInterfaces;
 using TextHandlerLibrary.Structs;
 using TextHandlerLibrary.SymbolContainers;
 using TextHandlerLibrary.TextClass;
-using TextHandlerLibrary.TextItemsClasses;
+using TextHandlerLibrary.CommonClasses;
 
 namespace TextHandlerLibrary.TextParser
 {

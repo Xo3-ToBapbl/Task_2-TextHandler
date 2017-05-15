@@ -1,5 +1,5 @@
-﻿namespace TextHandlerLibrary.SenstenseItemsInterfaces
-{
+﻿namespace TextHandlerLibrary.Interfaces
+{ 
     public interface ISentenceItem
     {
         string Chars { get; }

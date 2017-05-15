@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TextHandlerLibrary.CreatersInterfaces;
-using TextHandlerLibrary.SenstenseItemsInterfaces;
+using TextHandlerLibrary.Interfaces;
 using TextHandlerLibrary.TextItemsClasses;
 
 namespace TextHandlerLibrary.Creaters

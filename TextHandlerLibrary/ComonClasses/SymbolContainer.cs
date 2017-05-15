@@ -6,14 +6,6 @@ namespace TextHandlerLibrary.SymbolContainers
 {
     public class SymbolContainer
     {
-        #region Symbols
-        //private char[] vowels = { 'a', 'e', 'i', 'o', 'u', 'y' };
-        //private char[] coconsonants = {'b', 'c', 'd', 'f', 'g', 'h',
-        //                          'j', 'k', 'l', 'm', 'n', 'p',
-        //                          'r', 's', 't', 'v', 'w', 'x', 'z', '-'};
-        //private char[] wordSeparators = { ' ', ',', ';', ':', '.', '—', '!', '?' };
-        //private string[] sentenceSeparators = { ".", "!", "?", "!?", "?!", "..." };
-        #endregion
         private char[] vowels;
         private char[] coconsonants;
         private string[] wordSeparators;
@@ -73,7 +65,5 @@ namespace TextHandlerLibrary.SymbolContainers
                 return wordSeparators.Concat(sentenceSeparators).OrderByDescending(x=>x.Length).ToArray();
             }
         }
-
-
     }
 }

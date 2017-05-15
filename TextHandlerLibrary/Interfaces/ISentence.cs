@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace TextHandlerLibrary.SenstenseItemsInterfaces
+namespace TextHandlerLibrary.Interfaces
 {
     public interface ISentence: IEnumerable<ISentenceItem>
     {

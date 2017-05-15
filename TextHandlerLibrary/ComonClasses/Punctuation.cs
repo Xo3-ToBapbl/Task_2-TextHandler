@@ -1,7 +1,7 @@
-﻿using TextHandlerLibrary.SenstenseItemsInterfaces;
+﻿using TextHandlerLibrary.Interfaces;
 using TextHandlerLibrary.Structs;
 
-namespace TextHandlerLibrary.SenstenseItemsClasses
+namespace TextHandlerLibrary.CommonClasses
 {
     class Punctuation: IPunctuation
     {

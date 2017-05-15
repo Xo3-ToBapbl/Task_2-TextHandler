@@ -40,24 +40,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CreatersInterfaces\ISentenceItemCreator.cs" />
-    <Compile Include="CreatersInterfaces\ITextItemCreator.cs" />
-    <Compile Include="Creaters\SentenceCreater.cs" />
-    <Compile Include="Creaters\WordCreater.cs" />
+    <Compile Include="Interfaces\ISentenceItemCreator.cs" />
+    <Compile Include="Interfaces\ITextItemCreator.cs" />
+    <Compile Include="CreatersClasses\SentenceCreater.cs" />
+    <Compile Include="CreatersClasses\WordCreater.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SenstenseItemsClasses\Punctuation.cs" />
-    <Compile Include="SenstenseItemsClasses\Space.cs" />
-    <Compile Include="SenstenseItemsClasses\Word.cs" />
-    <Compile Include="SenstenseItemsInterfaces\IPunctuation.cs" />
-    <Compile Include="TextClass\Text.cs" />
-    <Compile Include="TextItemsInterfaces\ISentence.cs" />
-    <Compile Include="SenstenseItemsInterfaces\ISentenceItem.cs" />
-    <Compile Include="SenstenseItemsInterfaces\ISpace.cs" />
-    <Compile Include="SenstenseItemsInterfaces\IWord.cs" />
+    <Compile Include="ComonClasses\Punctuation.cs" />
+    <Compile Include="ComonClasses\Space.cs" />
+    <Compile Include="ComonClasses\Word.cs" />
+    <Compile Include="Interfaces\IPunctuation.cs" />
+    <Compile Include="ComonClasses\Text.cs" />
+    <Compile Include="Interfaces\ISentence.cs" />
+    <Compile Include="Interfaces\ISentenceItem.cs" />
+    <Compile Include="Interfaces\ISpace.cs" />
+    <Compile Include="Interfaces\IWord.cs" />
     <Compile Include="Structs\Symbol.cs" />
-    <Compile Include="SymbolContainers\SymbolContainer.cs" />
-    <Compile Include="TextItemsClasses\Sentence.cs" />
-    <Compile Include="TextParser\TextParser.cs" />
+    <Compile Include="ComonClasses\SymbolContainer.cs" />
+    <Compile Include="ComonClasses\Sentence.cs" />
+    <Compile Include="ComonClasses\TextParser.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
